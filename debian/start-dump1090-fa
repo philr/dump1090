@@ -21,12 +21,12 @@ then
     exit 64
 fi
 
-if [ -n "$PIAWARE_LAT" -a -n "$PIAWARE_LON" ]
+if [ -n "$POSITION" -a -n "$PIAWARE_LAT" -a -n "$PIAWARE_LON" ]
 then
     POSITION="--lat $PIAWARE_LAT --lon $PIAWARE_LON"
 fi
 
-exec /usr/bin/dump1090-fa \
+exec /usr/local/bin/dump1090-fa \
      $RECEIVER_OPTIONS $DECODER_OPTIONS $NET_OPTIONS $JSON_OPTIONS $POSITION \
      "$@"
 # exec failed, do not restart

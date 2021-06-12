@@ -1,0 +1,22 @@
+#!/bin/bash
+cp dump1090 /usr/local/bin/dump1090-fa
+cp view1090 /usr/local/bin/view1090-fa
+chmod 0755 /usr/local/bin/dump1090 /usr/local/bin/view1090
+
+[ ! -f /etc/default/dump109-fa ] && cp debian/dump1090-fa.default /etc/default/dump1090-fa
+cp debian/dump1090-fa.service /etc/systemd/system
+chmod 0644 /etc/default/dump1090-fa /etc/systemd/system/dump1090-fa.service
+mkdir -p /usr/local/share/dump1090-fa
+cp debian/start-dump1090-fa /usr/local/share/dump1090-fa
+rm -rf /usr/local/share/dump1090-fa/html
+cp -r --preserve=timestamps public_html_merged/. /usr/local/share/dump1090-fa/html
+find /usr/local/share/dump1090-fa -type d -exec chmod 0755 \{\} \;
+find /usr/local/share/dump1090-fa -type f -exec chmod 0644 \{\} \;
+chmod 0755 /usr/local/share/dump1090-fa/start-dump1090-fa
+
+if ! getent passwd dump1090 >/dev/null
+then
+    useradd --home-dir /usr/local/share/dump1090-fa --no-create-home --system --groups rtlsdr dump1090
+fi
+
+systemctl daemon-reload
