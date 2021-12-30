@@ -3,7 +3,7 @@ cp dump1090 /usr/local/bin/dump1090-fa
 cp view1090 /usr/local/bin/view1090-fa
 chmod 0755 /usr/local/bin/dump1090 /usr/local/bin/view1090
 
-[ ! -f /etc/default/dump109-fa ] && cp debian/dump1090-fa.default /etc/default/dump1090-fa
+[ ! -f /etc/default/dump1090-fa ] && cp debian/dump1090-fa.default /etc/default/dump1090-fa
 cp debian/dump1090-fa.service /etc/systemd/system
 chmod 0644 /etc/default/dump1090-fa /etc/systemd/system/dump1090-fa.service
 mkdir -p /usr/local/share/dump1090-fa
